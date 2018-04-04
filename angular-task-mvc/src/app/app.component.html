@@ -1,0 +1,179 @@
+﻿<div class="container-fluid" style="margin-top : 20px; margin-right:-20px;">
+
+    <div class="card-header">
+				<span class="main-heading"></span>
+				<button id="addRecruiterButton"
+					class="btn btn-primary rounded-btn pull-left"
+					(click)="openPopup(mainPopup,'save')" >Add
+					Client</button>
+	
+			</div>
+     <div>
+      <!-- <button style="font-size:24px" (click)="Success()"><i class="material-icons">&#xe7f4;</i></button> -->
+
+      <!--<button (click)="Success()">Success</button>
+      <button (click)="Warning()">Warning</button> -->
+     </div>
+    <div class="table-responsive-sm " style="overflow-x:auto;">
+        <table class="table table-hover table-bordered table-centered ">
+          <th>Name</th>
+          <th>Email Id</th>
+          <th>Contact No</th>
+          <th>Gender</th>    
+          <th>Address</th> 
+          <th>Actions</th>    
+          <tbody>    
+           
+         <ng-container *ngFor ="let emp of Employee">
+               <tr>
+                 <td>{{emp.name}}</td>
+                 <td>{{emp.emailId}}</td>
+                 <td>{{emp.mblNo}}</td>
+                 <td>{{emp.gender}}</td>
+                 <td>{{emp.address}}</td>    
+                 <td><span
+                  class="fa fa-edit green" title="edit" data-toggle="modal"
+                  (click)="editPopup(mainPopup,emp)"
+                  data-target="#dbPopUp">Edit</span> <span
+                  class="fa fa-trash-o red" title="delete" data-toggle="modal"
+                  (click)="delPopup(deletePopup,emp.id)"
+                  data-target="#dbDeletePopUp">Delete</span></td>
+               </tr>
+                 </ng-container>
+          </tbody>
+         </table>
+       </div>
+       <ng-template #mainPopup let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h6 class="modal-title">Add Cilent</h6>
+                      
+        
+            <button type="button" class="close" aria-label="Close"
+              (click)="d('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+        
+          <div class="modal-body">
+            <form role="form" #insertionForm="ngForm">
+              <div class="form-content">
+           
+                <div class="form-group">
+                  <div class="alignGrid" >
+                    
+                      <span class="popupLabel">Name:</span>
+                    
+                      <input id="name" type="text" required
+                        class="form-control input-underline input-lg" id=""
+                        placeholder="" autocomplete="off" name="name"
+                       [(ngModel)]="name">
+                    </div>
+                </div>
+        
+                
+                <div class="form-group">
+                  <div class="alignGrid">
+                
+                      <span class="popupLabel">EmailId:</span>
+                      <input id="emailId" type="text" required (keyup)="autoSearch()"
+                        class="form-control input-underline input-lg" id=""
+                        placeholder="" autocomplete="off" name="emailId"
+                         [(ngModel)]="emailId">
+                         <div id="alredyexists" style="color: red" *ngIf="_appService.exists_status">Email Already exists	
+                        </div>
+                        <div   style="color: green" class="hideMe" [hidden]="emailId.invalid || _appService.exists_status"></div>
+                  </div>
+                </div>
+        
+                               
+                <div class="form-group">
+                  <div class="alignGrid">
+                  
+                      <span class="popupLabel">Mobile No:</span>
+                
+                    
+                      <input id="mblNo" type="text" required 
+                        class="form-control input-underline input-lg" id=""
+                        placeholder="" autocomplete="off" name="mblNo"
+                        [(ngModel)]="mblNo">
+                       
+                  </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!--  <form role="form"> -->
+                          <label>Gender:&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                          <input type="radio" name="gender" value="male" [(ngModel)]="gender"> Male
+                          <input type="radio" name="gender" value="female" [(ngModel)]="gender"> Female<br>
+                          
+                        </div>
+                      </div>
+                
+                <div class="form-group">
+                  <div class="alignGrid">
+                    
+                      <span class="popupLabel">Address</span>
+                    
+                    
+                      <input id="address" type="text" required
+                        class="form-control input-underline input-lg" id=""
+                        placeholder="" autocomplete="off" name="address"
+                      [(ngModel)]="address">
+                    </div>
+                  </div>
+                  
+                          
+                
+                <div class="btn-group pull-right">
+                    <button type="button" *ngIf="savebuttondisp==true"
+                    class="btn btn-primary" data-dismiss="modal" title="Save"
+                    (click)="saveEmployee()" [disabled]="insertionForm.invalid">Save</button>
+
+                    <button *ngIf="updatebuttondisp==true" type="button"
+                  class="btn btn-primary" data-dismiss="modal" title="update"
+                (click)="update()" [disabled]="insertionForm.invalid">Update</button>
+
+                  <button type="button"
+                    data-dismiss="modal" class="btn btn-info" (click)="clear()">Clear</button>
+        
+                  <button type="button"
+                    data-dismiss="modal" class="btn btn-danger"
+                    (click)="c('Close click')">cancel</button>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          </ng-template>     
+
+          <ng-template #deletePopup
+          let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h6 class="modal-title">Delete Employee</h6>
+          <button type="button" class="close" aria-label="Close"
+            (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    
+        <div class="modal-body">
+          <p>Are you sure you want to delete?</p>
+        </div>
+    
+    
+    
+        <div class="modal-footer">
+    
+          <button type="button" class="btn btn-danger" data-dismiss="modal"
+            title="Delete" (click)="deleteEmployee()">Delete</button>
+    
+    
+          <button type="button" class="btn btn-warning"
+            (click)="c('Close click')">Cancel</button>
+        </div>
+        </ng-template>                               
+            
+        
+  </div>

@@ -1,0 +1,49 @@
+.main-heading{
+    font-size :  20px;
+}
+.charts{
+    margin : 20px;
+}   
+.table-centered{
+      margin: 0px auto;
+}  
+.pageBorder{
+margin : 20px -10px 20px -30px;
+}
+.tableOverflow {
+
+    overflow-x: auto;
+    margin-top:60px;
+    margin-left:5px;
+    
+} 
+
+.actionGrid{
+    display: grid;
+      grid-template-columns: repeat(2,1fr);
+      grid-gap: 4px;
+}
+.alignGrid{
+      display : grid;
+      grid-template-columns : 150px auto;
+      grid-gap : 3px;
+}
+.uploadGrid{
+      display : grid;
+      grid-template-columns  : 200px auto;
+}
+.popupLabel{
+      margin-top : 5px;
+}
+.searchBox{
+      border : 1px solid #d2d3d5;
+}
+.utilityMargin{
+      margin-top: -5px;
+}
+.imgGap{
+      margin-top:20px;
+}
+.topMargin{
+      margin-top :20px;
+}
