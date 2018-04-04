@@ -1,1 +1,1 @@
-# SpringMVC_Angular4
+# Spring MVC|Angular 4 Sample Application
