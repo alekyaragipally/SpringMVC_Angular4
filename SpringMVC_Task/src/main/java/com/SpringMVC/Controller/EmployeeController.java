@@ -31,6 +31,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;      
 	
+	//block of code which is used to save the added Employee into the database 
 	@RequestMapping(value = "/saveEmployee", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String saveEmployee(@RequestBody Employee employee)	{
     System.out.println("Employee details==="+employee);
@@ -38,6 +39,7 @@ public class EmployeeController {
 	return "OK";
 }
 
+	//block of code which is used to retrieve the employee data from the database
 	@RequestMapping(value = "/getEmployee", method = RequestMethod.GET)
 	public @ResponseBody List <Employee>  getEmployee()  {
 		List<Employee> manageSourceList= new ArrayList<Employee>();
@@ -52,6 +54,8 @@ public class EmployeeController {
 		return manageSourceList;
 		
 	}
+	
+	//block of code which is used to delete a particular employee based on his/her id
 	@RequestMapping(value = "/deleteById/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody List<Employee> deleteEmployee(@PathVariable(value = "id") String id) {
 
@@ -67,6 +71,8 @@ public class EmployeeController {
 		}
 				return list;
 	}
+	
+	//block of code which is used to update the Employee details
     @RequestMapping(value="/updateEmp",method = RequestMethod.POST)
     public @ResponseBody List<Employee> updateEmp(@RequestBody Employee emp) {
 		
@@ -80,7 +86,8 @@ public class EmployeeController {
     	return emp1;
     	
     }
-  
+   
+	//block of code which is used to register unique emailId's
     @RequestMapping(value="/autoSearch",method = RequestMethod.GET)
 	public void autoSearch(@RequestParam String term, HttpServletResponse response) {
 		try {
