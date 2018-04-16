@@ -5,7 +5,12 @@
  # Installation dependencies
  
  # The Backend
-  You'll need maven and java 1.8.
+  You'll need maven and Java 1.8.
 
  # The Frontend
- Node latest version
+  NodeJS latest version
+
+# Installing Frontend dependencies
+
+ i. Install nodeJS from NodeJS official website.Below is the link from where you can download nodeJs.
+ https://nodejs.org/en/
