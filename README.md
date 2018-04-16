@@ -12,5 +12,7 @@
 
 # Installing Frontend dependencies
 
- i. Install nodeJS from NodeJS official website.Below is the link from where you can download nodeJs.
- https://nodejs.org/en/
+ i. Install nodeJS from NodeJS official website.You can download nodeJs from the link given here, 
+ https://nodejs.org/en/ . Download LTS as it is most preferable.
+ ii. Optional - Download Visual Studio Code editor for using front end, as VS Code best supports angular 4.
+ 
