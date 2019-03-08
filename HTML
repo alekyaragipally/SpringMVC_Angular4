@@ -1,0 +1,635 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<ul class="navbar-nav">
+<li class="nav-item">
+  <a class="navbar-brand" [routerLink]="['/home']">Sample Appliaction</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/home']">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/reports']">Reports</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/bills']">Bill Generation</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/paid-bills']">Paid Bills</a>
+</li>
+</ul>
+</nav>
+<router-outlet></router-outlet>
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { PaidBillsComponent } from '../app/paid-bills/paid-bills.component';
+import { ReportsComponent } from '../app/reports/reports.component';
+import { HomeComponent } from '../app/home/home.component';
+import { BillComponent } from '../app/bill/bill.component';
+
+const routes: Routes = [
+
+  { path: '', component: HomeComponent },
+	{ path: 'home', component: HomeComponent },
+	{ path: 'reports', component: ReportsComponent},
+  { path: 'bills', component: BillComponent },
+  { path: 'paid-bills', component: PaidBillsComponent },
+	{ path: '**', redirectTo: 'home' }
+
+];
+export const routing = RouterModule.forRoot(routes);
+//export const routingModule: ModuleWithProviders = RouterModule.forRoot(routes);
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'; 
+import { CommonModule } from '@angular/common';
+import { AlertModule } from 'ngx-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { ReportsComponent } from './reports/reports.component';
+import { BillComponent } from './bill/bill.component';
+import { PaidBillsComponent } from './paid-bills/paid-bills.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ReportsComponent,
+    BillComponent,
+    PaidBillsComponent
+  ],
+  imports: [
+    AlertModule.forRoot(),
+    NgbModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyProject</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+
+import { Component, OnInit } from '@angular/core';
+declare var $:any;
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+    $('carousel').carousel({
+      interval: 1000
+    });
+  }
+
+}
+
+
+<!DOCTYPE html>
+<html>
+        <head>
+            
+              </head>
+    <body>
+            <div class="container mt-3">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    
+                      <!-- Indicators -->
+                      <ul class="carousel-indicators">
+                        <li data-target="myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="myCarousel" data-slide-to="1"></li>
+                        <li data-target="myCarousel" data-slide-to="2"></li>
+                      </ul>
+                      
+                      <!-- The slideshow -->
+                      <div class="carousel-inner">
+                        <div class="item active">
+                          <img src="pic3.jpg" alt="Picture 1" width="1100" height="500">
+                        </div>
+                        <div class="item">
+                          <img src="pic3.jpg" alt="Picture 2" width="1100" height="500">
+                        </div>
+                        <div class="item">
+                          <img src="pic3.jpg" alt="Picture 3" width="1100" height="500">
+                        </div>
+                      </div>
+                      
+                      <!-- Left and right controls -->
+                      <a class="carousel-control-prev" data-target="#myCarousel" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                      </a>
+                      <a class="carousel-control-next" data-target="#myCarousel" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                      </a>
+                    </div>
+                    
+                    </div><br>
+                    <div class="footer">
+                      <h2 style="text-align:center;">ABOUT</h2>
+                    </div>
+    </body>
+</html>
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+
+<!DOCTYPE html>
+<html>
+  <body>
+  <div class="container-fluid billCom">
+    <h3 style="text-align:center;">Advertisement Receipt</h3>
+    <hr>
+    <div class="alignGrid form-group" style="text-align:right;">
+      <label for="date">Date:</label>
+      <input type="date" id="date" [(ngModel)]="date">
+    </div>
+   <div class="alignGrid form-group">
+    <label for="name">Client Name:</label>
+    <input type="text" id="name" [(ngModel)]="name" required>
+   </div>
+   <div class="alignGrid form-group">
+    <label for="address">Address:</label>
+    <input type="text" id="address" [(ngModel)]="address" required>
+    <label for="amount">Amount:</label>
+          <input type="text" id="amount" [(ngModel)]="amount">
+   </div>
+   <div class="alignGrid form-group">
+    <label for="type">Add Type:</label>
+    <input type="text" id="type" [(ngModel)]="type" required>
+    <label for="discount">Discount:</label>
+    <input type="number" id="discount" [(ngModel)]="discount">
+   </div>
+   <div class="alignGrid form-group">
+    <label for="color">Print Color:</label>
+    <input type="radio" name="color" value="b&w" [(ngModel)]="color"> B&W
+    <input type="radio" name="color" value="color" [(ngModel)]="color"> Color &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label for="others">Others:</label>
+    <input type="text" id="others" [(ngModel)]="others">
+   </div>
+   <div class="alignGrid form-group">
+    <label for="alignment">Alignment:</label>
+    <input type="radio" name="alignment" value="front" [(ngModel)]="alignment"> Front
+    <input type="radio" name="alignment" value="back" [(ngModel)]="alignment"> Back
+    <input type="radio" name="alignment" value="other" [(ngModel)]="alignment"> Other 
+    <label for="gst">GST:</label>
+    <input type="text" id="gst" [(ngModel)]="gst">
+   </div>
+   <div class="alignGrid form-group">
+     <label for="size">Size:</label>
+     <input type="number" id="height" [(ngModel)]="height" style="width:40px;">
+     <input type="number" id="width" [(ngModel)]="width" style="width:40px;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <label for="totalAmnt">Total Amount:</label>
+     <input type="number" id="totalAmnt" [(ngModel)]="totalAmnt">
+   </div>
+   <div class="alignGrid form-group">
+    <label for="space">Space:</label>
+    <input type="number" id="space" [(ngModel)]="space">
+    <label for="advance">Advance Paid:</label>
+    <input type="number" id="advance" [(ngModel)]="advance">
+  </div>
+  <div class="alignGrid form-group">
+    <label for="rate">Rate Per Square:</label>
+    <input type="number" id="rate" [(ngModel)]="rate">
+    <label for="balance">Balance:</label>
+    <input type="number" id="balance" [(ngModel)]="balance">
+  </div>
+ 
+   <div>
+     <div>
+       <h4 style="text-align:center;">Official Use</h4>
+       <div>
+          <label for="mandal">Mandal:</label>&nbsp;
+          <input type="text" id="mandal" [(ngModel)]="mandal">
+          <label for="remarks">Remarks:</label>&nbsp;
+          <input type="text" id="remarks" [(ngModel)]="remarks">
+        </div>
+        <div>
+            <label for="district">District:</label>&nbsp;
+            <input type="text" id="district" [(ngModel)]="district">
+            <label for="sign">Signature:</label>&nbsp;
+            <input type="text" id="sign" [(ngModel)]="sign">
+          </div>
+          <div>
+              <label for="reporterName">Reporter Name:</label>&nbsp;
+              <input type="text" id="reporterName" [(ngModel)]="reporterName">
+              <label for="adminSign">Admin Signature:</label>&nbsp;
+            <input type="text" id="adminSign" [(ngModel)]="adminSign">
+            </div>
+     </div>
+      <div>
+      <div>
+          <label for="contactName">Contact Name:</label>&nbsp;
+          <input type="text" id="contactName" [(ngModel)]="contactName">
+          <label for="phNo">Contact Number:</label>&nbsp;
+        <input type="number" id="phNo" [(ngModel)]="phNo">
+        </div>
+  </div>
+  <div style="text-align:center;">
+     <button type="button" class="btn btn-primary" (click)="save()">Save</button> &nbsp;
+     <button type="reset" class="btn btn-secondary">Reset</button>&nbsp;
+     <button type="button" class="btn btn-info">Print</button>
+     </div>
+   </div>
+  </div>
+ 
+  <br>
+  <div class="footer">
+      <h2>ABOUT</h2>
+    </div>
+  </body>
+</html>
+
+.billCom{
+    width: 100%;
+    height: 100%;
+    background: url('src/images/pic3.jpg');
+    background-size: 100% 100%;
+    background-position: top center;
+    color: aliceblue;
+}
+.footer{
+    text-align: center;
+}
+label{
+    color: black;
+    width:180px;
+    clear:left;
+    text-align:right;
+    padding-right:10px;
+}
+input{
+    color: black;
+}
+
+
+import { Component, OnInit } from '@angular/core';
+import {NgbModal,ModalDismissReasons,NgbModalRef,NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+
+import { BillService } from './bill.service';
+
+@Component({
+  selector: 'app-bill',
+  templateUrl: './bill.component.html',
+  styleUrls: ['./bill.component.css']
+})
+export class BillComponent implements OnInit {
+  
+  modalRef: NgbModalRef;
+
+   name: string;
+   address: string;
+   type: string;
+   color: string;
+   alignment: string;
+   height: number;
+   width: number;
+   space: number;
+   rate: string;
+   date: string;
+   mandal: string;
+   district: string;
+   reporterName: string;
+   amount: number;
+   discount: string;
+   others: string;
+   gst: string;
+   totalAmnt: string;
+   advance: string;
+   balance: string;
+   sign: string;
+   adminSign: string;
+   contactName: string;
+   phNo: number;
+   remarks: string;
+   public BillGeneration : any [];
+   //size: number;
+  constructor(private _billService: BillService,private modalService: NgbModal) { }
+
+  ngOnInit() {
+    this._billService.getEmployees().subscribe(data => this.BillGeneration = data).add(data => {
+
+    });
+  }
+
+  openPopUp(content,ope){
+    console.log("openPopUp");
+    let ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
+
+  this.modalRef=this.modalService.open(content,ngbModalOptions);
+  }
+
+  save(){
+    this.space = this.height * this.width;
+    let dataObj = {
+      name: this.name,
+      address: this.address,
+      type: this.type,
+      color: this.color,
+      alignment: this.alignment,
+      height: this.height,
+      width: this.width,
+      space: this.space,
+      rate: this.rate,
+      date: this.date,
+      mandal: this.mandal,
+      district: this.district,
+      reporterName: this.reporterName,
+      amount: this.amount,
+      discount: this.discount,
+      others: this.others,
+      gst: this.gst,
+      totalAmnt: this.totalAmnt,
+      advance: this.advance,
+      balance: this.balance,
+      sign: this.sign,
+      adminSign: this.adminSign,
+      contactName: this.contactName,
+      phNo: this.phNo,
+      remarks: this.remarks
+    }
+    console.log("data="+JSON.stringify(dataObj))
+    this._billService.save(dataObj).add(data =>{
+      console.log("Saved");
+    })
+  }
+
+  reset(){
+    this.name="",
+    this.address="",
+    this.type="",
+    this.color="",
+    this.alignment="",
+    this.rate="",
+    this.mandal="",
+    this.district="",
+    this.reporterName=""
+
+  }
+
+
+
+
+}
+
+import { Injectable } from '@angular/core';
+import { Http,Response,Headers,RequestOptions,RequestMethod } from '@angular/http';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import 'rxjs/Rx';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BillService {
+
+  constructor(private _http: HttpClient) { }
+
+  private requestOptions = { 
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
+  };
+  
+  save(data){
+    console.log(JSON.stringify(data))
+    
+ return this._http.post('http://localhost:8080/MyApplication/saveBill', data, this.requestOptions).subscribe(res =>
+ console.log( JSON.stringify(res) ));
+  }
+
+
+    getEmployees()
+    {
+      console.log("Service")  
+  let headerOptions = new Headers({'Content-Type':'application/json'}); 
+  
+  let requestOptions = new RequestOptions({method : RequestMethod.Get, headers : headerOptions});
+    
+    //this is a url which is used to connect with the rest class & retrieve data from the database to UI
+    return this._http.get('https://jsonplaceholder.typicode.com/posts').map((response: Response) => response.json());
+  }
+  
+}
+
+
+<html>
+    <body>
+            <div class="table-responsive-sm billCom" style="overflow-x:auto">
+                <h3 style="text-align:center;">Paid Receipts</h3>
+                <table class="table table-hover table-bordered table-centered">
+                   <tr>
+                    <th>Bill No</th>
+                    <th>Bill Date</th>
+                    <th>Amount</th>
+                    <th>Remarks</th>
+                   </tr>
+                   <tr>
+                    <td><input type="text" name="billNo" id="billNo" placeholder="Bill No"></td>
+                    <td><input type="text" name="billDate" id="billDate" placeholder="Bill Date"></td>
+                    <td><input type="text" name="amount" id="amount" placeholder="amount"></td>
+                    <td><input type="text" name="remarks" id="remarks" placeholder="remarks"></td>
+                   </tr>
+                   <tr>
+                    <td><input type="text" name="billNo" id="billNo" placeholder="Bill No"></td>
+                    <td><input type="text" name="billDate" id="billDate" placeholder="Bill Date"></td>
+                    <td><input type="text" name="amount" id="amount" placeholder="amount"></td>
+                    <td><input type="text" name="remarks" id="remarks" placeholder="remarks"></td>
+                   </tr>
+                   <tr>
+                        <td><input type="text" name="billNo" id="billNo" placeholder="Bill No"></td>
+                        <td><input type="text" name="billDate" id="billDate" placeholder="Bill Date"></td>
+                        <td><input type="text" name="amount" id="amount" placeholder="amount"></td>
+                        <td><input type="text" name="remarks" id="remarks" placeholder="remarks"></td>
+                       </tr>
+                       <tr>
+                            <td><input type="text" name="billNo" id="billNo" placeholder="Bill No"></td>
+                            <td><input type="text" name="billDate" id="billDate" placeholder="Bill Date"></td>
+                            <td><input type="text" name="amount" id="amount" placeholder="amount"></td>
+                            <td><input type="text" name="remarks" id="remarks" placeholder="remarks"></td>
+                           </tr>
+                           <tr>
+                                <td><input type="text" name="billNo" id="billNo" placeholder="Bill No"></td>
+                                <td><input type="text" name="billDate" id="billDate" placeholder="Bill Date"></td>
+                                <td><input type="text" name="amount" id="amount" placeholder="amount"></td>
+                                <td><input type="text" name="remarks" id="remarks" placeholder="remarks"></td>
+                               </tr>
+                </table>
+                </div><br>
+                <div style="text-align:center;">
+                        <button type="button" class="btn btn-primary" (click)="save()">Save</button> &nbsp;
+                        <button type="reset" class="btn btn-secondary">Reset</button>&nbsp;
+                        </div>
+                        <div class="footer">
+                                <h2>ABOUT</h2>
+                              </div>
+    </body>
+</html>
+
+
+.billCom{
+    width: 100%;
+    height: 100%;
+    background: url('src/images/pic3.jpg');
+    background-size: 100% 100%;
+    background-position: top center;
+    color: aliceblue;
+}
+th{
+    color: black;
+}
+.footer{
+    text-align: center;
+}
+
+
+<html>
+    <body>
+        <div class="billCom">
+        <h3 style="text-align:center;">Generate Reports</h3>
+    <br>
+    <div class="dropdown">
+        <label for="reports" style="color:black;">Generate Reports:</label> &nbsp;
+        <select name="dropdown" id="dropdown">
+            <option value="">Select</option>
+            <option value="yearlyBased">Yearly Based Reports</option>
+            <option value="monthlyBased">Monthly Based Reports</option>
+        </select>
+    </div><br>
+    <div class="table-responsive-sm" style="overflow-x:auto">
+            <h3 style="text-align:center;color:white;">Yearly Based Reports</h3>
+            <table class="table table-hover table-bordered table-centered">
+               <tr>
+                <th>Date</th>
+                <th>Client Name</th>
+                <th>Type</th>
+                <th>Color</th>
+                <th>Alignment</th>
+                <th>Size</th>
+                <th>Amount</th>
+                <th>Mandal</th>
+                <th>Reporter</th>
+                <th>Remarks</th>
+               </tr>
+               <tr>
+                    <td>dd/mm/yyyy</td>
+                    <td>Full Name</td>
+                    <td>Type of advt</td>
+                    <td>Color</td>
+                    <td>Alignment</td>
+                    <td>Size</td>
+                    <td>5000</td>
+                    <td>mandal</td>
+                    <td>reporter</td>
+                    <td>none</td>
+               </tr>
+            </table>
+            </div>
+            <br>
+            <div class="table-responsive-sm" style="overflow-x:auto">
+                    <h3 style="text-align:center;color:white;">Monthly Based Reports</h3>
+                    <table class="table table-hover table-bordered table-centered">
+                       <tr>
+                        <th>Date</th>
+                        <th>Client Name</th>
+                        <th>Type</th>
+                        <th>Color</th>
+                        <th>Alignment</th>
+                        <th>Size</th>
+                        <th>Amount</th>
+                        <th>Mandal</th>
+                        <th>Reporter</th>
+                        <th>Remarks</th>
+                       </tr>
+                       <tr>
+                           <td>dd/mm/yyyy</td>
+                           <td>Full Name</td>
+                           <td>Type of advt</td>
+                           <td>Color</td>
+                           <td>Alignment</td>
+                           <td>Size</td>
+                           <td>5000</td>
+                           <td>mandal</td>
+                           <td>reporter</td>
+                           <td>none</td>
+                       </tr>
+                    </table>
+                    </div>
+</div>
+<div class="footer">
+        <h2>ABOUT</h2>
+      </div>
+    </body>
+</html>
+
+
+.billCom{
+    width: 100%;
+    height: 100%;
+    background: url('src/images/pic3.jpg');
+    background-size: 100% 100%;
+    background-position: top center;
+    color: aliceblue;
+}
+option{
+    color: black;
+}
+select{
+    color: black;
+}
+label{
+    color: azure;
+}
+.footer{
+    text-align: center;
+}
+tr{
+    color: black;
+}
