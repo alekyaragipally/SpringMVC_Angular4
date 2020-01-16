@@ -1,0 +1,95 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { SearchCampaignComponent } from './search-campaign/search-campaign.component';
+import { CreateCampaignComponent } from "./create-campaign/create-campaign.component";
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { WrapperComponent } from './wrapper/wrapper.component';
+import { ModuleWithProviders } from '@angular/core';
+import { CampaignQuestionsComponent } from './campaign-questions/campaign-questions.component';
+import { AppComponent } from './app.component';
+import { UpdateCampaignComponent } from './update-campaign/update-campaign.component';
+import { UnsavedDataCanDeactivateGuard }     from './can-deactivate/unsaved-data-can-deactivate-guard.service';
+import { AuthGuard } from './guards/index';
+import {LocationUploadExcelComponent} from './location-upload-excel/location-upload-excel.component';
+import {RetrieveWWSCampaignInfoComponent} from './retrieve-wwscampaign-info/retrieve-wwscampaign-info.component';
+import {ActiveCampaignVinlistComponent} from './active-campaign-vinlist/active-campaign-vinlist.component';
+import {WoAuthorizationMaintenanceComponent} from './wo-authorization-maintenance/wo-authorization-maintenance.component';
+import { ModelYearComponent } from './model-year/model-year.component';
+import { CampaignSearchComponent } from './campaign-search/campaign-search.component';
+import { CampaignSummaryComponent } from './campaign-summary/campaign-summary.component';
+import { MasterListComponent } from './master-list/master-list.component';
+import {YardRoleConstant} from './constants/yardRoleConstant';
+import { StatusUploadExcelComponent } from './status-upload-excel/status-upload-excel.component';
+
+const routes: Routes = [
+  {
+    path: 'wrapper', component: WrapperComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent ,canActivate: [AuthGuard]  },
+
+      { path: 'create-campaign', 
+      component: CreateCampaignComponent ,
+      canActivate: [AuthGuard] ,  
+      canDeactivate: [UnsavedDataCanDeactivateGuard] ,
+      data: { roles: [YardRoleConstant.YC_Basic,YardRoleConstant.YC_QE,YardRoleConstant.YC_IPC]}},
+
+      { path: 'update-campaign/:id', 
+      component: UpdateCampaignComponent ,
+      canActivate: [AuthGuard] , 
+      canDeactivate: [UnsavedDataCanDeactivateGuard] },
+
+      { path: 'search-campaign/:id', 
+      component: SearchCampaignComponent,
+      canActivate: [AuthGuard]   },
+
+      { path: 'campaign-questions/:id', 
+      component: CampaignQuestionsComponent,
+      canActivate: [AuthGuard]   },
+
+      { path: 'masterList/:id', 
+      component: MasterListComponent,
+      canActivate: [AuthGuard]   },
+
+      { path: 'locationExcelUpload', 
+      component: LocationUploadExcelComponent,
+      canActivate:  [AuthGuard]  },
+
+      { path: 'statusExcelUpload', 
+      component: StatusUploadExcelComponent,
+      canActivate:  [AuthGuard]  },
+
+      { path: 'retrieveWWSCampaignInfo', 
+      component: RetrieveWWSCampaignInfoComponent,
+      canActivate:  [AuthGuard]  },
+
+      { path: 'activeCampaignVinlist/:id', 
+      component: ActiveCampaignVinlistComponent,
+      canActivate:  [AuthGuard]  },
+
+      { path: 'woAuthorizationMaintenance', 
+      component: WoAuthorizationMaintenanceComponent,
+      canActivate:  [AuthGuard]  },
+
+      { path: 'modelYear', 
+      component: ModelYearComponent, 
+      canActivate: [AuthGuard]},
+
+      { path: 'campaign-search', 
+      component: CampaignSearchComponent,
+      canActivate:  [AuthGuard]  },
+
+      { path: 'campaign-summary/:id', 
+      component: CampaignSummaryComponent,
+      canActivate:  [AuthGuard]  }
+      
+    ]
+
+  },
+  { path: '**', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: LoginComponent},
+
+];
+
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: false });
